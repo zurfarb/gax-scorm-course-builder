@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Test-LMS</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font: 14px/1.4 system-ui, sans-serif; display: grid; grid-template-columns: minmax(0, 1fr) 380px; height: 100vh; }
+    iframe { width: 100%; height: 100vh; border: 0; }
+    aside { display: flex; flex-direction: column; min-height: 0; border-left: 1px solid #ddd; background: #fafafa; }
+    header { padding: 12px; border-bottom: 1px solid #ddd; }
+    h1 { margin: 0 0 8px; font-size: 16px; }
+    .row { display: flex; gap: 8px; flex-wrap: wrap; }
+    button { font: inherit; padding: 4px 10px; border: 1px solid #999; border-radius: 4px; background: #fff; cursor: pointer; }
+    .state { padding: 8px 12px; border-bottom: 1px solid #ddd; font-family: ui-monospace, monospace; font-size: 12px; white-space: pre-wrap; max-height: 40vh; overflow: auto; }
+    .log { flex: 1; overflow: auto; padding: 8px 12px; font-family: ui-monospace, monospace; font-size: 12px; }
+    .log div { padding: 2px 0; border-bottom: 1px dotted #e5e5e5; word-break: break-all; }
+    .err { color: #C94125; font-weight: bold; }
+    .set { color: #004478; }
+    @media (max-width: 900px) { body { grid-template-columns: 1fr; grid-template-rows: 60vh 40vh; } aside { border-left: 0; border-top: 1px solid #ddd; } iframe { height: 60vh; } }
+  </style>
+</head>
+<body>
+  <iframe id="sco" title="Kurs"></iframe>
+  <aside>
+    <header>
+      <h1 id="heading">Test-LMS</h1>
+      <div class="row">
+        <button type="button" id="relaunch">Neu starten (Wiedereinstieg)</button>
+        <button type="button" id="reset">Daten löschen</button>
+      </div>
+    </header>
+    <div class="state" id="state"></div>
+    <div class="log" id="log" aria-live="polite"></div>
+  </aside>
+<script>
+/* Simulated LMS for local testing. Exposes the SCORM 1.2 (window.API) or
+ * SCORM 2004 (window.API_1484_11) runtime, validates values against the spec
+ * and keeps the data model in localStorage so resume can be tested. */
+(function () {
+  'use strict';
+  var params = new URLSearchParams(location.search);
+  var version = params.get('v') === '2004' ? '2004' : '1.2';
+  var launch = params.get('launch') || 'de-CH/index.html';
+  var key = 'gax-test-lms:' + version + ':' + launch;
+  var data = {};
+  try { data = JSON.parse(localStorage.getItem(key) || '{}'); } catch (e) { data = {}; }
+  var resumed = !!data['cmi.suspend_data'];
+  var state = 'new';
+  var logEl = document.getElementById('log');
+  var stateEl = document.getElementById('state');
+  document.getElementById('heading').textContent = 'Test-LMS · SCORM ' + version;
+
+  var RULES = version === '1.2' ? {
+    'cmi.core.lesson_status': /^(passed|completed|failed|incomplete|browsed|not attempted)$/,
+    'cmi.core.exit': /^(time-out|suspend|logout|)$/,
+    'cmi.core.session_time': /^\d{2,4}:\d{2}:\d{2}(\.\d{1,2})?$/,
+    'cmi.core.score.raw': /^\d+(\.\d+)?$/, 'cmi.core.score.min': /^\d+(\.\d+)?$/, 'cmi.core.score.max': /^\d+(\.\d+)?$/
+  } : {
+    'cmi.completion_status': /^(completed|incomplete|not attempted|unknown)$/,
+    'cmi.success_status': /^(passed|failed|unknown)$/,
+    'cmi.exit': /^(time-out|suspend|logout|normal|)$/,
+    'cmi.session_time': /^P(\d+Y)?(\d+M)?(\d+D)?(T(\d+H)?(\d+M)?(\d+(\.\d+)?S)?)?$/,
+    'cmi.score.scaled': /^-?(0(\.\d+)?|1(\.0+)?)$/,
+    'cmi.progress_measure': /^(0(\.\d+)?|1(\.0+)?)$/
+  };
+  var READ_ONLY = version === '1.2'
+    ? ['cmi.core.entry', 'cmi.core.student_name', 'cmi.core.student_id', 'cmi.core.lesson_mode', 'cmi.core.credit']
+    : ['cmi.entry', 'cmi.learner_name', 'cmi.learner_id', 'cmi.mode', 'cmi.credit'];
+  var LIMITS = version === '1.2'
+    ? { 'cmi.suspend_data': 4096, 'cmi.core.lesson_location': 255 }
+    : { 'cmi.suspend_data': 64000, 'cmi.location': 1000 };
+
+  function log(text, cls) {
+    var div = document.createElement('div');
+    div.textContent = new Date().toLocaleTimeString() + '  ' + text;
+    if (cls) div.className = cls;
+    logEl.appendChild(div);
+    logEl.scrollTop = logEl.scrollHeight;
+  }
+  function render() {
+    var keys = Object.keys(data).sort();
+    stateEl.textContent = 'Sitzung: ' + state + '\n' + keys.map(function (k) { return k + ' = ' + data[k]; }).join('\n');
+  }
+  function persist() { try { localStorage.setItem(key, JSON.stringify(data)); } catch (e) { /* ignore */ } render(); }
+  function fail(msg) { log('FEHLER: ' + msg, 'err'); return 'false'; }
+
+  function initialize() {
+    if (state === 'running') return fail('Initialize wurde zweimal aufgerufen');
+    state = 'running';
+    if (version === '1.2') {
+      data['cmi.core.entry'] = resumed ? 'resume' : 'ab-initio';
+      data['cmi.core.student_name'] = 'Muster, Anna';
+      data['cmi.core.student_id'] = 'test-learner';
+      data['cmi.core.lesson_mode'] = 'normal';
+      data['cmi.core.credit'] = 'credit';
+      if (!data['cmi.core.lesson_status']) data['cmi.core.lesson_status'] = 'not attempted';
+    } else {
+      data['cmi.entry'] = resumed ? 'resume' : 'ab-initio';
+      data['cmi.learner_name'] = 'Anna Muster';
+      data['cmi.learner_id'] = 'test-learner';
+      data['cmi.mode'] = 'normal';
+      data['cmi.credit'] = 'credit';
+      if (!data['cmi.completion_status']) data['cmi.completion_status'] = 'not attempted';
+      if (!data['cmi.success_status']) data['cmi.success_status'] = 'unknown';
+    }
+    log('Initialize → true');
+    render();
+    return 'true';
+  }
+  function getValue(k) {
+    if (state !== 'running') return fail('GetValue(' + k + ') ausserhalb der Sitzung') && '';
+    var v = data[k] === undefined ? '' : String(data[k]);
+    log('GetValue ' + k + ' → "' + v.slice(0, 80) + '"');
+    return v;
+  }
+  function setValue(k, v) {
+    v = String(v);
+    if (state !== 'running') return fail('SetValue(' + k + ') ausserhalb der Sitzung');
+    if (READ_ONLY.indexOf(k) >= 0) return fail(k + ' ist schreibgeschützt');
+    if (RULES[k] && !RULES[k].test(v)) return fail('ungültiger Wert ' + k + ' = "' + v + '"');
+    if (LIMITS[k] && v.length > LIMITS[k]) return fail(k + ' zu lang (' + v.length + ' > ' + LIMITS[k] + ')');
+    data[k] = v;
+    log('SetValue ' + k + ' = "' + v.slice(0, 120) + '"', 'set');
+    render();
+    return 'true';
+  }
+  function commit() {
+    if (state !== 'running') return fail('Commit ausserhalb der Sitzung');
+    log('Commit');
+    persist();
+    return 'true';
+  }
+  function finish() {
+    if (state !== 'running') return fail('Terminate/Finish ausserhalb der Sitzung');
+    state = 'terminated';
+    log('Terminate');
+    persist();
+    return 'true';
+  }
+  var noError = function () { return '0'; };
+  var noText = function () { return ''; };
+
+  if (version === '1.2') {
+    window.API = { LMSInitialize: initialize, LMSGetValue: getValue, LMSSetValue: setValue, LMSCommit: commit,
+      LMSFinish: finish, LMSGetLastError: noError, LMSGetErrorString: noText, LMSGetDiagnostic: noText };
+  } else {
+    window.API_1484_11 = { Initialize: initialize, GetValue: getValue, SetValue: setValue, Commit: commit,
+      Terminate: finish, GetLastError: noError, GetErrorString: noText, GetDiagnostic: noText };
+  }
+
+  document.getElementById('relaunch').addEventListener('click', function () { location.reload(); });
+  document.getElementById('reset').addEventListener('click', function () {
+    try { localStorage.removeItem(key); } catch (e) { /* ignore */ }
+    location.reload();
+  });
+  render();
+  document.getElementById('sco').src = launch;
+})();
+</script>
+</body>
+</html>

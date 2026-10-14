@@ -1,0 +1,869 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/gax-scorm-course-builder/schemas/course.schema.json",
+  "title": "GAX SCORM course (one language)",
+  "description": "One file per language (course.de-CH.json, course.en-GB.json). All ids, types, correct answers and settings must be identical across languages; only texts and localized image paths differ.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "version",
+    "language",
+    "title",
+    "objectives",
+    "settings",
+    "chapters",
+    "quiz"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "id": {
+      "$ref": "#/$defs/slug",
+      "description": "Course id, used for package file names and SCORM identifiers."
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "language": {
+      "enum": [
+        "de-CH",
+        "en-GB"
+      ]
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120,
+      "description": "Shown in the top bar, on the start page and as course title in the LMS (manifest)."
+    },
+    "subtitle": {
+      "type": "string",
+      "maxLength": 160,
+      "description": "Shown on the start page under the title (light weight)."
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 500,
+      "description": "Shown in the LMS catalogue (manifest) and on the start page."
+    },
+    "audience": {
+      "type": "string",
+      "description": "Metadata for the course owners; not shown to learners."
+    },
+    "durationMinutes": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 240
+    },
+    "objectives": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/objective"
+      }
+    },
+    "settings": {
+      "$ref": "#/$defs/settings"
+    },
+    "chapters": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/chapter"
+      }
+    },
+    "quiz": {
+      "$ref": "#/$defs/quiz"
+    },
+    "glossary": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "term",
+          "definition"
+        ],
+        "properties": {
+          "term": {
+            "type": "string"
+          },
+          "definition": {
+            "$ref": "#/$defs/richText"
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "maxLength": 64
+    },
+    "richText": {
+      "type": "string",
+      "description": "Limited Markdown: paragraphs (blank line), **bold**, *italic*, [link](https://...), '- ' bullet lists, '1. ' numbered lists. No headings, no HTML."
+    },
+    "objective": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "text",
+        "level"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/slug"
+        },
+        "text": {
+          "type": "string",
+          "description": "Observable outcome, starts with a verb: 'Du kannst ...' / 'You can ...'."
+        },
+        "level": {
+          "enum": [
+            "remember",
+            "understand",
+            "apply",
+            "analyse"
+          ],
+          "description": "Bloom level; drives element and question choice."
+        }
+      }
+    },
+    "settings": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "navigation": {
+          "enum": [
+            "free",
+            "sequential"
+          ],
+          "default": "free",
+          "description": "sequential = a chapter unlocks after the previous one is completed."
+        },
+        "completion": {
+          "enum": [
+            "all-pages"
+          ],
+          "default": "all-pages",
+          "description": "Completed once every page was visited. Quiz score is reported but does not gate completion."
+        },
+        "quiz": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "passingScore": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100,
+              "default": 80
+            },
+            "maxAttempts": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+              "description": "0 = unlimited."
+            },
+            "shuffleQuestions": {
+              "type": "boolean",
+              "default": true
+            },
+            "shuffleOptions": {
+              "type": "boolean",
+              "default": true
+            },
+            "showSolutions": {
+              "type": "boolean",
+              "default": true
+            },
+            "questionCount": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 1,
+              "default": null,
+              "description": "Draw N random questions from the pool; null = all."
+            }
+          }
+        }
+      }
+    },
+    "chapter": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "pages"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/slug"
+        },
+        "title": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "intro": {
+          "type": "string",
+          "maxLength": 300
+        },
+        "objectives": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/slug"
+          },
+          "description": "Objective ids covered by this chapter."
+        },
+        "pages": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/page"
+          }
+        }
+      }
+    },
+    "page": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "blocks"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/slug"
+        },
+        "title": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "blocks": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/block"
+          }
+        }
+      }
+    },
+    "image": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "src",
+        "alt"
+      ],
+      "properties": {
+        "src": {
+          "type": "string",
+          "description": "Path relative to the course folder, e.g. images/process.png. A localized variant images/process.de-CH.png is preferred automatically if present."
+        },
+        "alt": {
+          "type": "string",
+          "description": "Describes the content for screen readers; empty string only for purely decorative images."
+        },
+        "caption": {
+          "type": "string"
+        },
+        "hasText": {
+          "type": "boolean",
+          "description": "true if the image contains readable text (labels, captions). The build then expects a variant per language (name.en-GB.png) and warns if it is missing."
+        }
+      }
+    },
+    "block": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "text",
+            "image",
+            "text-image",
+            "callout",
+            "accordion",
+            "tabs",
+            "steps",
+            "flipcards",
+            "check",
+            "scenario",
+            "summary"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "text"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$defs/block-text"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "image"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$defs/block-image"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "text-image"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$defs/block-text-image"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "callout"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$defs/block-callout"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "accordion"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$defs/block-items"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "tabs"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$defs/block-items"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "steps"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$defs/block-items"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "flipcards"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$defs/block-flipcards"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "check"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$defs/block-check"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "scenario"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$defs/block-scenario"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "summary"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$defs/block-summary"
+          }
+        }
+      ]
+    },
+    "block-text": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "body"
+      ],
+      "properties": {
+        "type": {},
+        "lead": {
+          "type": "boolean",
+          "description": "Render as lead paragraph."
+        },
+        "body": {
+          "$ref": "#/$defs/richText"
+        }
+      }
+    },
+    "block-image": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "image"
+      ],
+      "properties": {
+        "type": {},
+        "image": {
+          "$ref": "#/$defs/image"
+        }
+      }
+    },
+    "block-text-image": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "body",
+        "image"
+      ],
+      "properties": {
+        "type": {},
+        "body": {
+          "$ref": "#/$defs/richText"
+        },
+        "image": {
+          "$ref": "#/$defs/image"
+        },
+        "imagePosition": {
+          "enum": [
+            "left",
+            "right"
+          ],
+          "default": "right"
+        }
+      }
+    },
+    "block-callout": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "variant",
+        "body"
+      ],
+      "properties": {
+        "type": {},
+        "variant": {
+          "enum": [
+            "info",
+            "tip",
+            "warning",
+            "important"
+          ]
+        },
+        "title": {
+          "type": "string"
+        },
+        "body": {
+          "$ref": "#/$defs/richText"
+        }
+      }
+    },
+    "block-items": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "items"
+      ],
+      "description": "accordion (optional depth), tabs (comparisons, 2-5 items), steps (ordered process).",
+      "properties": {
+        "type": {},
+        "title": {
+          "type": "string"
+        },
+        "items": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 8,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "title",
+              "body"
+            ],
+            "properties": {
+              "title": {
+                "type": "string",
+                "maxLength": 60
+              },
+              "body": {
+                "$ref": "#/$defs/richText"
+              },
+              "image": {
+                "$ref": "#/$defs/image"
+              }
+            }
+          }
+        }
+      }
+    },
+    "block-flipcards": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "cards"
+      ],
+      "properties": {
+        "type": {},
+        "title": {
+          "type": "string"
+        },
+        "cards": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 9,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "front",
+              "back"
+            ],
+            "properties": {
+              "front": {
+                "type": "string",
+                "maxLength": 80
+              },
+              "back": {
+                "$ref": "#/$defs/richText"
+              }
+            }
+          }
+        }
+      }
+    },
+    "block-check": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "question"
+      ],
+      "description": "Ungraded knowledge check with immediate feedback.",
+      "properties": {
+        "type": {},
+        "question": {
+          "$ref": "#/$defs/question"
+        }
+      }
+    },
+    "block-scenario": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "situation",
+        "choices"
+      ],
+      "description": "Ungraded decision: realistic situation, 2-4 choices, each with consequence feedback.",
+      "properties": {
+        "type": {},
+        "title": {
+          "type": "string"
+        },
+        "situation": {
+          "$ref": "#/$defs/richText"
+        },
+        "image": {
+          "$ref": "#/$defs/image"
+        },
+        "choices": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 4,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "text",
+              "correct",
+              "feedback"
+            ],
+            "properties": {
+              "id": {
+                "$ref": "#/$defs/slug"
+              },
+              "text": {
+                "type": "string"
+              },
+              "correct": {
+                "type": "boolean"
+              },
+              "feedback": {
+                "$ref": "#/$defs/richText"
+              }
+            }
+          }
+        }
+      }
+    },
+    "block-summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "items"
+      ],
+      "properties": {
+        "type": {},
+        "title": {
+          "type": "string"
+        },
+        "items": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 7,
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "quiz": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "questions"
+      ],
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "intro": {
+          "$ref": "#/$defs/richText"
+        },
+        "questions": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/question"
+          }
+        }
+      }
+    },
+    "option": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "text",
+        "correct"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/slug"
+        },
+        "text": {
+          "type": "string"
+        },
+        "correct": {
+          "type": "boolean"
+        }
+      }
+    },
+    "question": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "prompt",
+        "feedback"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/slug"
+        },
+        "type": {
+          "enum": [
+            "single",
+            "multiple",
+            "truefalse",
+            "matching"
+          ]
+        },
+        "objective": {
+          "$ref": "#/$defs/slug",
+          "description": "Objective id this question assesses."
+        },
+        "prompt": {
+          "type": "string"
+        },
+        "image": {
+          "$ref": "#/$defs/image"
+        },
+        "options": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 6,
+          "items": {
+            "$ref": "#/$defs/option"
+          }
+        },
+        "answer": {
+          "type": "boolean",
+          "description": "truefalse only."
+        },
+        "pairs": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 6,
+          "description": "matching only: left items are fixed, right items are shuffled.",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "left",
+              "right"
+            ],
+            "properties": {
+              "id": {
+                "$ref": "#/$defs/slug"
+              },
+              "left": {
+                "type": "string"
+              },
+              "right": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "feedback": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "correct",
+            "incorrect"
+          ],
+          "properties": {
+            "correct": {
+              "$ref": "#/$defs/richText"
+            },
+            "incorrect": {
+              "$ref": "#/$defs/richText"
+            }
+          }
+        },
+        "explanation": {
+          "$ref": "#/$defs/richText",
+          "description": "Why the solution is right; shown with solutions."
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "enum": [
+                  "single",
+                  "multiple"
+                ]
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "options"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "truefalse"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "answer"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "matching"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "pairs"
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,266 @@
+{
+  "name": "gax",
+  "_source": "Colors sampled from screenshots of the GAX design system; desktop typography from GAX docs; keys marked _assumed are placeholders.",
+  "font": {
+    "family": "Roboto",
+    "_note": "GAX uses the proprietary typeface 'Galactica' (variable). Substitute: Roboto variable font (wght axis 100-900) so weight 650 is possible.",
+    "variable": true,
+    "fallback": "Arial, Helvetica, sans-serif",
+    "weights": {
+      "light": 300,
+      "regular": 400,
+      "bold": 650
+    },
+    "_rules": [
+      "400 for body copy",
+      "650 mainly for headlines",
+      "300 only as contrast to 650 in headlines"
+    ]
+  },
+  "palette": {
+    "brown": {
+      "light": "#C4A277",
+      "medium": "#B89363",
+      "dark": "#8E694A"
+    },
+    "yellow": {
+      "light": "#FFC32D",
+      "medium": "#EEB524",
+      "dark": "#A36B13"
+    },
+    "red": {
+      "light": "#F67858",
+      "medium": "#E86646",
+      "dark": "#C94125"
+    },
+    "green": {
+      "light": "#84D160",
+      "medium": "#73C44D",
+      "dark": "#2B8800"
+    },
+    "purple": {
+      "light": "#B384D3",
+      "medium": "#AF79D4",
+      "dark": "#9353B9"
+    },
+    "blue": {
+      "light": "#72C7F9",
+      "medium": "#48AFF0",
+      "dark": "#007BC7",
+      "darker": "#004478"
+    },
+    "grey": {
+      "900": "#333333",
+      "800": "#444444",
+      "700": "#565656",
+      "600": "#666666",
+      "500": "#999999",
+      "400": "#B3B3B3",
+      "300": "#DDDDDD",
+      "200": "#EEEEEE",
+      "100": "#F5F5F5",
+      "50": "#FBFBFB",
+      "25": "#FCFCFC",
+      "0": "#FFFFFF"
+    }
+  },
+  "color": {
+    "brand": {
+      "primary": "{palette.blue.dark}",
+      "primaryHover": "{palette.blue.darker}",
+      "onPrimary": "#FFFFFF"
+    },
+    "active": {
+      "bg": "{palette.yellow.light}",
+      "fg": "{palette.grey.900}"
+    },
+    "text": {
+      "default": "{palette.grey.900}",
+      "muted": "{palette.grey.600}",
+      "disabled": "{palette.grey.500}",
+      "inverse": "#FFFFFF",
+      "link": "{palette.blue.dark}"
+    },
+    "background": {
+      "page": "#FFFFFF",
+      "surface": "#FFFFFF",
+      "subtle": "{palette.grey.100}",
+      "header": "{palette.blue.darker}"
+    },
+    "border": {
+      "default": "{palette.grey.300}",
+      "strong": "{palette.grey.500}"
+    },
+    "feedback": {
+      "success": {
+        "accent": "{palette.green.dark}",
+        "bg": "#EEF8E9",
+        "text": "{palette.grey.900}"
+      },
+      "error": {
+        "accent": "{palette.red.dark}",
+        "bg": "#FDEDE9",
+        "text": "{palette.grey.900}"
+      },
+      "warning": {
+        "accent": "{palette.yellow.dark}",
+        "bg": "#FFF6DD",
+        "text": "{palette.grey.900}"
+      },
+      "info": {
+        "accent": "{palette.blue.dark}",
+        "bg": "#EAF6FE",
+        "text": "{palette.grey.900}"
+      },
+      "_rule": "accent only for icon/border/large bold heading; body text uses 'text' (accent on tinted bg is ~4.1-4.3:1, below AA for small text)"
+    },
+    "badge": {
+      "bg": "{palette.purple.dark}",
+      "fg": "#FFFFFF"
+    },
+    "accent": {
+      "optional": "{palette.brown.dark}"
+    },
+    "focus": "{palette.blue.dark}",
+    "_textRule": "Typography is used in black/white; highlight information first via font style (weight), not color."
+  },
+  "spacing": {
+    "_assumed": "GAX spacing not provided; 4px base grid",
+    "base": 4,
+    "scale": {
+      "xxs": 4,
+      "xs": 8,
+      "s": 12,
+      "m": 16,
+      "l": 24,
+      "xl": 32,
+      "xxl": 48,
+      "xxxl": 64
+    }
+  },
+  "typography": {
+    "_source": "GAX / Desktop & Widescreen (pasted 2026-10-14). small, caption, mobile = assumptions until GAX values are available.",
+    "desktop": {
+      "display1": {
+        "size": 36,
+        "lineHeight": 44,
+        "weight": 650,
+        "letterSpacing": "0em"
+      },
+      "display1Regular": {
+        "size": 36,
+        "lineHeight": 44,
+        "weight": 400,
+        "letterSpacing": "0em"
+      },
+      "display1Light": {
+        "size": 36,
+        "lineHeight": 44,
+        "weight": 300,
+        "letterSpacing": "0em"
+      },
+      "display2": {
+        "size": 24,
+        "lineHeight": 32,
+        "weight": 650,
+        "letterSpacing": "0em"
+      },
+      "display2Regular": {
+        "size": 24,
+        "lineHeight": 32,
+        "weight": 400,
+        "letterSpacing": "0em"
+      },
+      "display2Light": {
+        "size": 24,
+        "lineHeight": 32,
+        "weight": 300,
+        "letterSpacing": "0em"
+      },
+      "title": {
+        "size": 20,
+        "lineHeight": 28,
+        "weight": 650,
+        "letterSpacing": "0.005em"
+      },
+      "titleRegular": {
+        "size": 20,
+        "lineHeight": 28,
+        "weight": 400,
+        "letterSpacing": "0.005em"
+      },
+      "lead": {
+        "size": 16,
+        "lineHeight": 24,
+        "weight": 650,
+        "letterSpacing": "0.01em"
+      },
+      "copy": {
+        "size": 16,
+        "lineHeight": 24,
+        "weight": 400,
+        "letterSpacing": "0.01em"
+      },
+      "smallBold": {
+        "size": 14,
+        "lineHeight": 20,
+        "weight": 650,
+        "letterSpacing": "0.01em"
+      },
+      "small": {
+        "size": 14,
+        "lineHeight": 20,
+        "weight": 400,
+        "letterSpacing": "0.01em",
+        "_assumed": true
+      },
+      "caption": {
+        "size": 12,
+        "lineHeight": 16,
+        "weight": 400,
+        "letterSpacing": "0.02em",
+        "_assumed": true
+      }
+    },
+    "mobile": {
+      "_assumed": "GAX mobile scale not provided; only display sizes shrink, rest = desktop",
+      "display1": {
+        "size": 28,
+        "lineHeight": 36
+      },
+      "display2": {
+        "size": 20,
+        "lineHeight": 28
+      },
+      "title": {
+        "size": 18,
+        "lineHeight": 24
+      }
+    },
+    "usage": {
+      "courseTitle": "display1",
+      "chapterTitle": "display1 (+ display1Light subtitle)",
+      "pageTitle": "display2",
+      "sectionHeading": "title",
+      "quizQuestion": "title",
+      "intro": "lead",
+      "body": "copy",
+      "button": "lead",
+      "caption": "small",
+      "navigation": "smallBold"
+    }
+  },
+  "radius": {
+    "sm": 4,
+    "md": 8,
+    "lg": 16,
+    "pill": 999
+  },
+  "breakpoints": {
+    "tablet": 768,
+    "desktop": 1024
+  },
+  "layout": {
+    "contentMaxWidth": 760
+  }
+}

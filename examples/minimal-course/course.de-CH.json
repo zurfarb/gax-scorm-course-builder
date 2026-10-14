@@ -1,0 +1,415 @@
+{
+  "id": "sichere-passwoerter",
+  "version": "1.0.0",
+  "language": "de-CH",
+  "title": "Sichere Passwörter",
+  "subtitle": "In 10 Minuten zu besseren Logins",
+  "description": "Passwörter schützen deine Konten, Daten und die deines Teams. In diesem Kurs lernst du, woran du ein starkes Passwort erkennst, wie du dir viele Passwörter merkst und was du tust, wenn ein Passwort in falsche Hände geraten ist.",
+  "audience": "Alle Mitarbeitenden",
+  "durationMinutes": 10,
+  "objectives": [
+    {
+      "id": "lo-erkennen",
+      "text": "Du kannst erklären, was ein starkes Passwort ausmacht.",
+      "level": "understand"
+    },
+    {
+      "id": "lo-erstellen",
+      "text": "Du kannst ein starkes, merkbares Passwort mit der Satz-Methode erstellen.",
+      "level": "apply"
+    },
+    {
+      "id": "lo-reagieren",
+      "text": "Du kannst bei einem kompromittierten Passwort die richtigen Schritte einleiten.",
+      "level": "apply"
+    }
+  ],
+  "settings": {
+    "navigation": "free",
+    "completion": "all-pages",
+    "quiz": {
+      "passingScore": 80,
+      "maxAttempts": 0,
+      "shuffleQuestions": true,
+      "shuffleOptions": true,
+      "showSolutions": true,
+      "questionCount": null
+    }
+  },
+  "chapters": [
+    {
+      "id": "grundlagen",
+      "title": "Was ein Passwort stark macht",
+      "intro": "Angreifer raten Passwörter nicht von Hand — sie probieren Millionen Kombinationen pro Sekunde aus.",
+      "objectives": [
+        "lo-erkennen"
+      ],
+      "pages": [
+        {
+          "id": "warum-laenge-zaehlt",
+          "title": "Warum Länge zählt",
+          "blocks": [
+            {
+              "type": "text-image",
+              "body": "Ein Computer probiert bei einem Angriff systematisch alle möglichen Kombinationen aus. Jedes zusätzliche Zeichen **vervielfacht** die Zahl der Möglichkeiten.\n\nDeshalb gilt: **Länge schlägt Komplexität.** Ein Passwort mit 16 Zeichen ist deutlich sicherer als eines mit 8 Zeichen und vielen Sonderzeichen.",
+              "image": {
+                "src": "images/password-shield.png",
+                "alt": "Ein Schild mit Vorhängeschloss über einer Reihe von Passwortpunkten."
+              },
+              "imagePosition": "right"
+            },
+            {
+              "type": "callout",
+              "variant": "tip",
+              "body": "Verwende mindestens **14 Zeichen**. Je länger, desto besser."
+            }
+          ]
+        },
+        {
+          "id": "merkmale",
+          "title": "Merkmale eines starken Passworts",
+          "blocks": [
+            {
+              "type": "tabs",
+              "title": "Stark oder schwach?",
+              "items": [
+                {
+                  "title": "Stark",
+                  "body": "- mindestens 14 Zeichen lang\n- für jedes Konto einzigartig\n- enthält keine persönlichen Angaben\n- ist nicht in Wörterbüchern oder Leak-Listen zu finden"
+                },
+                {
+                  "title": "Schwach",
+                  "body": "- kurz, z. B. «Sommer24!»\n- mehrfach verwendet\n- enthält Namen, Geburtsdaten oder Haustiere\n- folgt einem Muster wie «Passwort1», «Passwort2» …"
+                }
+              ]
+            },
+            {
+              "type": "flipcards",
+              "title": "Begriffe, die du kennen solltest",
+              "cards": [
+                {
+                  "front": "Brute Force",
+                  "back": "Ein Angriff, bei dem automatisiert **alle Kombinationen** ausprobiert werden."
+                },
+                {
+                  "front": "Credential Stuffing",
+                  "back": "Angreifer testen geleakte Zugangsdaten **bei anderen Diensten**. Deshalb nie Passwörter mehrfach verwenden."
+                },
+                {
+                  "front": "Passwort-Manager",
+                  "back": "Ein Programm, das **einzigartige Passwörter** erzeugt und verschlüsselt speichert."
+                }
+              ]
+            },
+            {
+              "type": "check",
+              "question": {
+                "id": "check-staerke",
+                "type": "single",
+                "objective": "lo-erkennen",
+                "prompt": "Welches Passwort ist am sichersten?",
+                "options": [
+                  {
+                    "id": "a",
+                    "text": "P@ssw0rt!",
+                    "correct": false
+                  },
+                  {
+                    "id": "b",
+                    "text": "Velo-Kaffee-Regen-Berner-Bär",
+                    "correct": true
+                  },
+                  {
+                    "id": "c",
+                    "text": "Anna1987",
+                    "correct": false
+                  }
+                ],
+                "feedback": {
+                  "correct": "Es ist lang, enthält keine persönlichen Angaben und ist trotzdem gut merkbar.",
+                  "incorrect": "Achte vor allem auf die **Länge** und darauf, dass keine persönlichen Angaben enthalten sind."
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "anwenden",
+      "title": "Passwörter erstellen und schützen",
+      "objectives": [
+        "lo-erstellen",
+        "lo-reagieren"
+      ],
+      "pages": [
+        {
+          "id": "satz-methode",
+          "title": "Die Satz-Methode",
+          "blocks": [
+            {
+              "type": "text",
+              "lead": true,
+              "body": "Mit der Satz-Methode erstellst du in wenigen Sekunden ein langes Passwort, das du dir trotzdem merken kannst."
+            },
+            {
+              "type": "steps",
+              "items": [
+                {
+                  "title": "Satz ausdenken",
+                  "body": "Denk dir einen Satz, den nur du kennst, z. B. «Am Montag fahre ich mit dem Velo 12 km ins Büro»."
+                },
+                {
+                  "title": "Anfangsbuchstaben nehmen",
+                  "body": "Nimm die Anfangsbuchstaben und Zahlen: **AMfimdV12kiB**."
+                },
+                {
+                  "title": "Verlängern",
+                  "body": "Ergänze ein Trennzeichen und ein weiteres Wort, bis du mindestens 14 Zeichen hast."
+                },
+                {
+                  "title": "Im Passwort-Manager speichern",
+                  "body": "Für alle anderen Konten lässt du den Passwort-Manager ein zufälliges Passwort erzeugen."
+                }
+              ]
+            },
+            {
+              "type": "accordion",
+              "title": "Häufige Fragen",
+              "items": [
+                {
+                  "title": "Muss ich Passwörter regelmässig ändern?",
+                  "body": "Nein. Ändere ein Passwort nur, wenn es kompromittiert sein könnte. Häufige Wechsel führen oft zu schwächeren Passwörtern."
+                },
+                {
+                  "title": "Darf ich Passwörter aufschreiben?",
+                  "body": "Nicht auf Zetteln am Bildschirm. Verwende stattdessen einen Passwort-Manager."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "passwort-geleakt",
+          "title": "Wenn ein Passwort geleakt wurde",
+          "blocks": [
+            {
+              "type": "scenario",
+              "title": "Eine verdächtige Nachricht",
+              "situation": "Du erhältst eine automatische Mail: Dein Passwort für ein privates Online-Konto wurde in einem Datenleck gefunden. Du verwendest dasselbe Passwort auch für dein Firmenkonto.",
+              "choices": [
+                {
+                  "id": "ignorieren",
+                  "text": "Ich ignoriere die Mail, das ist bestimmt Spam.",
+                  "correct": false,
+                  "feedback": "Riskant. Prüfe die Meldung über die offizielle Website des Dienstes, nicht über Links in der Mail. Wenn sie echt ist, haben Angreifer dein Passwort bereits."
+                },
+                {
+                  "id": "privat-aendern",
+                  "text": "Ich ändere nur das Passwort des privaten Kontos.",
+                  "correct": false,
+                  "feedback": "Ein guter erster Schritt, aber nicht genug. Weil du das Passwort mehrfach verwendest, ist auch dein Firmenkonto gefährdet."
+                },
+                {
+                  "id": "alles-aendern",
+                  "text": "Ich ändere das Passwort überall, wo ich es verwendet habe, und melde den Vorfall der IT.",
+                  "correct": true,
+                  "feedback": "So schliesst du alle Lücken und die IT kann prüfen, ob bereits verdächtige Anmeldungen stattgefunden haben."
+                }
+              ]
+            },
+            {
+              "type": "callout",
+              "variant": "important",
+              "title": "Im Verdachtsfall",
+              "body": "Melde einen möglichen Passwort-Leak **sofort** der IT — auch wenn du dir nicht sicher bist."
+            },
+            {
+              "type": "summary",
+              "items": [
+                "Länge schlägt Komplexität: mindestens 14 Zeichen.",
+                "Für jedes Konto ein eigenes Passwort.",
+                "Mit der Satz-Methode merkst du dir lange Passwörter.",
+                "Bei einem Leak: überall ändern und die IT informieren."
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "quiz": {
+    "title": "Abschlusstest",
+    "intro": "Teste dein Wissen. Du kannst den Test so oft wiederholen, wie du möchtest.",
+    "questions": [
+      {
+        "id": "q-laenge",
+        "type": "truefalse",
+        "objective": "lo-erkennen",
+        "prompt": "Ein Passwort mit 8 Zeichen und vielen Sonderzeichen ist sicherer als eines mit 16 Kleinbuchstaben.",
+        "answer": false,
+        "feedback": {
+          "correct": "Länge schlägt Komplexität.",
+          "incorrect": "Länge zählt mehr als Sonderzeichen."
+        },
+        "explanation": "Die Länge erhöht die Zahl der möglichen Kombinationen stärker als zusätzliche Sonderzeichen."
+      },
+      {
+        "id": "q-merkmale",
+        "type": "multiple",
+        "objective": "lo-erkennen",
+        "prompt": "Welche Merkmale hat ein starkes Passwort?",
+        "options": [
+          {
+            "id": "lang",
+            "text": "Es ist mindestens 14 Zeichen lang.",
+            "correct": true
+          },
+          {
+            "id": "einzigartig",
+            "text": "Es wird nur für ein Konto verwendet.",
+            "correct": true
+          },
+          {
+            "id": "geburtstag",
+            "text": "Es enthält dein Geburtsdatum, damit du es dir merkst.",
+            "correct": false
+          },
+          {
+            "id": "wechsel",
+            "text": "Es wird jeden Monat gewechselt.",
+            "correct": false
+          }
+        ],
+        "feedback": {
+          "correct": "Länge und Einzigartigkeit sind entscheidend.",
+          "incorrect": "Prüfe, welche Merkmale wirklich vor Angriffen schützen."
+        },
+        "explanation": "Länge und Einzigartigkeit sind entscheidend. Persönliche Angaben sind leicht zu erraten, und häufige Wechsel führen oft zu schwächeren Passwörtern."
+      },
+      {
+        "id": "q-satz",
+        "type": "single",
+        "objective": "lo-erstellen",
+        "prompt": "Welches Passwort wurde korrekt mit der Satz-Methode erstellt?",
+        "options": [
+          {
+            "id": "a",
+            "text": "MkHiZ2Kt-Morgenrot (aus «Meine kleine Hündin ist zwei Kilo teuer»)",
+            "correct": true
+          },
+          {
+            "id": "b",
+            "text": "Montag123",
+            "correct": false
+          },
+          {
+            "id": "c",
+            "text": "Passwort-Passwort",
+            "correct": false
+          }
+        ],
+        "feedback": {
+          "correct": "Das Passwort basiert auf einem persönlichen Satz und wurde verlängert.",
+          "incorrect": "Erinnere dich an die vier Schritte der Satz-Methode."
+        },
+        "explanation": "Die Satz-Methode nutzt die Anfangsbuchstaben eines persönlichen Satzes und verlängert sie bei Bedarf."
+      },
+      {
+        "id": "q-verlaengern",
+        "type": "single",
+        "objective": "lo-erstellen",
+        "prompt": "Dein Satz-Passwort hat erst 11 Zeichen. Was tust du?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Ein Trennzeichen und ein weiteres Wort ergänzen.",
+            "correct": true
+          },
+          {
+            "id": "b",
+            "text": "Es so lassen, 11 Zeichen reichen.",
+            "correct": false
+          },
+          {
+            "id": "c",
+            "text": "Ein Ausrufezeichen am Ende anhängen.",
+            "correct": false
+          }
+        ],
+        "feedback": {
+          "correct": "So erreichst du schnell die nötige Länge.",
+          "incorrect": "Denk an die Mindestlänge von 14 Zeichen."
+        },
+        "explanation": "Ein zusätzliches Wort verlängert das Passwort deutlich und bleibt gut merkbar."
+      },
+      {
+        "id": "q-begriffe",
+        "type": "matching",
+        "objective": "lo-erkennen",
+        "prompt": "Ordne die Begriffe den Beschreibungen zu.",
+        "pairs": [
+          {
+            "id": "brute",
+            "left": "Brute Force",
+            "right": "Alle Kombinationen werden automatisch ausprobiert."
+          },
+          {
+            "id": "stuffing",
+            "left": "Credential Stuffing",
+            "right": "Geleakte Zugangsdaten werden bei anderen Diensten getestet."
+          },
+          {
+            "id": "manager",
+            "left": "Passwort-Manager",
+            "right": "Erzeugt und speichert einzigartige Passwörter."
+          }
+        ],
+        "feedback": {
+          "correct": "Du kennst die wichtigsten Begriffe.",
+          "incorrect": "Schau dir die Begriffskarten in Kapitel 1 nochmals an."
+        }
+      },
+      {
+        "id": "q-leak",
+        "type": "single",
+        "objective": "lo-reagieren",
+        "prompt": "Dein Passwort wurde geleakt und du verwendest es auch für dein Firmenkonto. Was tust du?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Abwarten, ob etwas passiert.",
+            "correct": false
+          },
+          {
+            "id": "b",
+            "text": "Das Passwort überall ändern und die IT informieren.",
+            "correct": true
+          },
+          {
+            "id": "c",
+            "text": "Nur das Firmenpasswort ändern.",
+            "correct": false
+          }
+        ],
+        "feedback": {
+          "correct": "So schliesst du alle Lücken.",
+          "incorrect": "Denk daran, dass du das Passwort mehrfach verwendest."
+        },
+        "explanation": "Ändere das Passwort überall, wo du es verwendet hast, und melde den Vorfall der IT."
+      },
+      {
+        "id": "q-melden",
+        "type": "truefalse",
+        "objective": "lo-reagieren",
+        "prompt": "Einen möglichen Passwort-Leak meldest du der IT erst, wenn du sicher bist, dass er echt ist.",
+        "answer": false,
+        "feedback": {
+          "correct": "Genau, lieber einmal zu viel melden.",
+          "incorrect": "Melde den Verdacht sofort."
+        },
+        "explanation": "Die IT kann nur schnell reagieren, wenn sie früh informiert wird — auch bei einem Verdacht."
+      }
+    ]
+  }
+}

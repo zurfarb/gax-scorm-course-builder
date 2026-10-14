@@ -1,0 +1,415 @@
+{
+  "id": "sichere-passwoerter",
+  "version": "1.0.0",
+  "language": "en-GB",
+  "title": "Secure passwords",
+  "subtitle": "Better logins in 10 minutes",
+  "description": "Passwords protect your accounts and data, and those of your team. In this course you will learn what makes a password strong, how to remember lots of passwords and what to do if a password falls into the wrong hands.",
+  "audience": "All employees",
+  "durationMinutes": 10,
+  "objectives": [
+    {
+      "id": "lo-erkennen",
+      "text": "You can explain what makes a password strong.",
+      "level": "understand"
+    },
+    {
+      "id": "lo-erstellen",
+      "text": "You can create a strong, memorable password using the sentence method.",
+      "level": "apply"
+    },
+    {
+      "id": "lo-reagieren",
+      "text": "You can take the right steps if a password has been compromised.",
+      "level": "apply"
+    }
+  ],
+  "settings": {
+    "navigation": "free",
+    "completion": "all-pages",
+    "quiz": {
+      "passingScore": 80,
+      "maxAttempts": 0,
+      "shuffleQuestions": true,
+      "shuffleOptions": true,
+      "showSolutions": true,
+      "questionCount": null
+    }
+  },
+  "chapters": [
+    {
+      "id": "grundlagen",
+      "title": "What makes a password strong",
+      "intro": "Attackers don’t guess passwords by hand — they try millions of combinations per second.",
+      "objectives": [
+        "lo-erkennen"
+      ],
+      "pages": [
+        {
+          "id": "warum-laenge-zaehlt",
+          "title": "Why length matters",
+          "blocks": [
+            {
+              "type": "text-image",
+              "body": "During an attack, a computer systematically tries every possible combination. Each extra character **multiplies** the number of possibilities.\n\nThat is why **length beats complexity**. A 16-character password is far more secure than an 8-character one full of special characters.",
+              "image": {
+                "src": "images/password-shield.png",
+                "alt": "A shield with a padlock above a row of password dots."
+              },
+              "imagePosition": "right"
+            },
+            {
+              "type": "callout",
+              "variant": "tip",
+              "body": "Use at least **14 characters**. The longer, the better."
+            }
+          ]
+        },
+        {
+          "id": "merkmale",
+          "title": "Features of a strong password",
+          "blocks": [
+            {
+              "type": "tabs",
+              "title": "Strong or weak?",
+              "items": [
+                {
+                  "title": "Strong",
+                  "body": "- at least 14 characters long\n- unique for every account\n- contains no personal details\n- not found in dictionaries or leak lists"
+                },
+                {
+                  "title": "Weak",
+                  "body": "- short, e.g. ‘Summer24!’\n- used more than once\n- contains names, dates of birth or pets\n- follows a pattern such as ‘Password1’, ‘Password2’ …"
+                }
+              ]
+            },
+            {
+              "type": "flipcards",
+              "title": "Terms you should know",
+              "cards": [
+                {
+                  "front": "Brute force",
+                  "back": "An attack that automatically tries **every combination**."
+                },
+                {
+                  "front": "Credential stuffing",
+                  "back": "Attackers test leaked login details **on other services**. So never reuse passwords."
+                },
+                {
+                  "front": "Password manager",
+                  "back": "A program that creates **unique passwords** and stores them encrypted."
+                }
+              ]
+            },
+            {
+              "type": "check",
+              "question": {
+                "id": "check-staerke",
+                "type": "single",
+                "objective": "lo-erkennen",
+                "prompt": "Which password is the most secure?",
+                "options": [
+                  {
+                    "id": "a",
+                    "text": "P@ssw0rt!",
+                    "correct": false
+                  },
+                  {
+                    "id": "b",
+                    "text": "Bicycle-Coffee-Rain-Bernese-Bear",
+                    "correct": true
+                  },
+                  {
+                    "id": "c",
+                    "text": "Anna1987",
+                    "correct": false
+                  }
+                ],
+                "feedback": {
+                  "correct": "It is long, contains no personal details and is still easy to remember.",
+                  "incorrect": "Focus above all on **length** and on avoiding personal details."
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "anwenden",
+      "title": "Creating and protecting passwords",
+      "objectives": [
+        "lo-erstellen",
+        "lo-reagieren"
+      ],
+      "pages": [
+        {
+          "id": "satz-methode",
+          "title": "The sentence method",
+          "blocks": [
+            {
+              "type": "text",
+              "lead": true,
+              "body": "With the sentence method you can create a long password in seconds that is still easy to remember."
+            },
+            {
+              "type": "steps",
+              "items": [
+                {
+                  "title": "Think of a sentence",
+                  "body": "Think of a sentence only you know, e.g. ‘On Monday I cycle 12 km to the office’."
+                },
+                {
+                  "title": "Take the first letters",
+                  "body": "Take the first letters and numbers: **OMIc12kttO**."
+                },
+                {
+                  "title": "Make it longer",
+                  "body": "Add a separator and another word until you have at least 14 characters."
+                },
+                {
+                  "title": "Save it in a password manager",
+                  "body": "For all other accounts, let the password manager create a random password."
+                }
+              ]
+            },
+            {
+              "type": "accordion",
+              "title": "Frequently asked questions",
+              "items": [
+                {
+                  "title": "Do I need to change my passwords regularly?",
+                  "body": "No. Only change a password if it might have been compromised. Frequent changes often lead to weaker passwords."
+                },
+                {
+                  "title": "Can I write my passwords down?",
+                  "body": "Not on notes stuck to your screen. Use a password manager instead."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "passwort-geleakt",
+          "title": "When a password has been leaked",
+          "blocks": [
+            {
+              "type": "scenario",
+              "title": "A suspicious message",
+              "situation": "You receive an automated email: the password for one of your private online accounts was found in a data leak. You use the same password for your work account.",
+              "choices": [
+                {
+                  "id": "ignorieren",
+                  "text": "I ignore the email — it’s bound to be spam.",
+                  "correct": false,
+                  "feedback": "Risky. Check the warning on the service’s official website, not via links in the email. If it is genuine, attackers already have your password."
+                },
+                {
+                  "id": "privat-aendern",
+                  "text": "I only change the password of my private account.",
+                  "correct": false,
+                  "feedback": "A good first step, but not enough. Because you reuse the password, your work account is also at risk."
+                },
+                {
+                  "id": "alles-aendern",
+                  "text": "I change the password wherever I have used it and report the incident to IT.",
+                  "correct": true,
+                  "feedback": "This closes every gap, and IT can check whether there have already been suspicious logins."
+                }
+              ]
+            },
+            {
+              "type": "callout",
+              "variant": "important",
+              "title": "If in doubt",
+              "body": "Report a possible password leak to IT **immediately** — even if you are not sure."
+            },
+            {
+              "type": "summary",
+              "items": [
+                "Length beats complexity: at least 14 characters.",
+                "A separate password for every account.",
+                "The sentence method helps you remember long passwords.",
+                "After a leak: change it everywhere and inform IT."
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "quiz": {
+    "title": "Final quiz",
+    "intro": "Test your knowledge. You can retake the quiz as often as you like.",
+    "questions": [
+      {
+        "id": "q-laenge",
+        "type": "truefalse",
+        "objective": "lo-erkennen",
+        "prompt": "A password with 8 characters and lots of special characters is more secure than one with 16 lower-case letters.",
+        "answer": false,
+        "feedback": {
+          "correct": "Length beats complexity.",
+          "incorrect": "Length matters more than special characters."
+        },
+        "explanation": "Length increases the number of possible combinations more than extra special characters do."
+      },
+      {
+        "id": "q-merkmale",
+        "type": "multiple",
+        "objective": "lo-erkennen",
+        "prompt": "Which features does a strong password have?",
+        "options": [
+          {
+            "id": "lang",
+            "text": "It is at least 14 characters long.",
+            "correct": true
+          },
+          {
+            "id": "einzigartig",
+            "text": "It is only used for one account.",
+            "correct": true
+          },
+          {
+            "id": "geburtstag",
+            "text": "It contains your date of birth so you can remember it.",
+            "correct": false
+          },
+          {
+            "id": "wechsel",
+            "text": "It is changed every month.",
+            "correct": false
+          }
+        ],
+        "feedback": {
+          "correct": "Length and uniqueness are what count.",
+          "incorrect": "Check which features really protect against attacks."
+        },
+        "explanation": "Length and uniqueness are decisive. Personal details are easy to guess, and frequent changes often lead to weaker passwords."
+      },
+      {
+        "id": "q-satz",
+        "type": "single",
+        "objective": "lo-erstellen",
+        "prompt": "Which password was created correctly with the sentence method?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Mldi2kh-Sunrise (from ‘My little dog is 2 kilos heavy’)",
+            "correct": true
+          },
+          {
+            "id": "b",
+            "text": "Monday123",
+            "correct": false
+          },
+          {
+            "id": "c",
+            "text": "Password-Password",
+            "correct": false
+          }
+        ],
+        "feedback": {
+          "correct": "The password is based on a personal sentence and has been lengthened.",
+          "incorrect": "Remember the four steps of the sentence method."
+        },
+        "explanation": "The sentence method uses the first letters of a personal sentence and lengthens them if necessary."
+      },
+      {
+        "id": "q-verlaengern",
+        "type": "single",
+        "objective": "lo-erstellen",
+        "prompt": "Your sentence password only has 11 characters. What do you do?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Add a separator and another word.",
+            "correct": true
+          },
+          {
+            "id": "b",
+            "text": "Leave it — 11 characters are enough.",
+            "correct": false
+          },
+          {
+            "id": "c",
+            "text": "Add an exclamation mark at the end.",
+            "correct": false
+          }
+        ],
+        "feedback": {
+          "correct": "That is a quick way to reach the length you need.",
+          "incorrect": "Remember the minimum length of 14 characters."
+        },
+        "explanation": "An extra word makes the password much longer and is still easy to remember."
+      },
+      {
+        "id": "q-begriffe",
+        "type": "matching",
+        "objective": "lo-erkennen",
+        "prompt": "Match the terms with their descriptions.",
+        "pairs": [
+          {
+            "id": "brute",
+            "left": "Brute force",
+            "right": "Every combination is tried automatically."
+          },
+          {
+            "id": "stuffing",
+            "left": "Credential stuffing",
+            "right": "Leaked login details are tested on other services."
+          },
+          {
+            "id": "manager",
+            "left": "Password manager",
+            "right": "Creates and stores unique passwords."
+          }
+        ],
+        "feedback": {
+          "correct": "You know the key terms.",
+          "incorrect": "Have another look at the term cards in chapter 1."
+        }
+      },
+      {
+        "id": "q-leak",
+        "type": "single",
+        "objective": "lo-reagieren",
+        "prompt": "Your password has been leaked and you also use it for your work account. What do you do?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Wait and see whether anything happens.",
+            "correct": false
+          },
+          {
+            "id": "b",
+            "text": "Change the password everywhere and inform IT.",
+            "correct": true
+          },
+          {
+            "id": "c",
+            "text": "Only change my work password.",
+            "correct": false
+          }
+        ],
+        "feedback": {
+          "correct": "This closes every gap.",
+          "incorrect": "Remember that you use the password more than once."
+        },
+        "explanation": "Change the password wherever you have used it and report the incident to IT."
+      },
+      {
+        "id": "q-melden",
+        "type": "truefalse",
+        "objective": "lo-reagieren",
+        "prompt": "You only report a possible password leak to IT once you are sure it is genuine.",
+        "answer": false,
+        "feedback": {
+          "correct": "Exactly — better to report once too often.",
+          "incorrect": "Report the suspicion immediately."
+        },
+        "explanation": "IT can only react quickly if it is informed early — even if it is only a suspicion."
+      }
+    ]
+  }
+}
