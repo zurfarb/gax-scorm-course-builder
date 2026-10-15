@@ -284,10 +284,11 @@ a:hover { color: var(--color-brand-primary-hover); }
 .accordion__panel .figure { margin-top: var(--space-m); }
 
 /* ---------- Tabs ---------- */
-.tabs__list { display: flex; gap: var(--space-xxs); overflow-x: auto; border-bottom: 1px solid var(--color-border-default); scrollbar-width: thin; }
+/* padding/margin on the list keep room for the focus outline, which overflow would clip */
+.tabs__list { display: flex; gap: var(--space-l); overflow-x: auto; overflow-y: hidden; padding: 0 6px; margin: 0 -6px; box-shadow: inset 0 -1px 0 var(--color-border-default); scrollbar-width: thin; }
 .tabs__tab {
-  flex: none; min-height: var(--touch); padding: var(--space-s) var(--space-m);
-  background: none; border: 0; border-bottom: 4px solid transparent; margin-bottom: -1px; color: var(--color-text-muted);
+  flex: none; min-height: var(--touch); padding: var(--space-s) 0 calc(var(--space-s) / 2);
+  background: none; border: 0; border-bottom: 4px solid transparent; color: var(--color-text-muted);
 }
 .tabs__tab:hover { color: var(--color-text-default); }
 .tabs__tab[aria-selected="true"] { color: var(--color-text-default); border-bottom-color: var(--color-active-bg); font-weight: var(--font-weight-bold); }
